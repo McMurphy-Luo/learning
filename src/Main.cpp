@@ -3,6 +3,11 @@
 
 using namespace std;
 
+template<int = 5>
+class C {
+
+};
+
 class B {
 public:
   B(int v)
@@ -10,7 +15,7 @@ public:
 
   }
 
-  B(const B& another) = delete;
+//  B(const B& another) = delete;
 
   B& operator=(const B& another) = delete;
 
@@ -20,11 +25,12 @@ public:
 class A {
 public:
 
+  /*
   template<
     typename T,
-    typename std::enable_if<(std::is_copy_assignable<T>::value && std::is_copy_constructible<T>::value)>::type* = 0
+    typename = std::enable_if_t<std::is_copy_assignable<T>::value && std::is_copy_constructible<T>::value>
   >
-    void TTT(const T& haha) {
+  void TTT(const T& haha) {
     cout << "A::TTT from copy_assignable and copy_constructable" << endl;
   }
 
@@ -35,7 +41,7 @@ public:
   
   template<
     typename T,
-    typename std::enable_if<(std::is_copy_constructible<T>::value && !std::is_copy_assignable<T>::value)>::type* = 0
+    typename = std::enable_if_t<std::is_copy_constructible<T>::value && !std::is_copy_assignable<T>::value>
   >
   void TTT(const T& haha) {
     cout << "A::TTT from copy_constructable" << endl;
@@ -45,22 +51,18 @@ public:
   
   template<
     typename T,
-    typename std::enable_if<(std::is_copy_assignable<T>::value && !std::is_copy_constructible<T>::value)>::type* = 0
+    typename = std::enable_if_t<std::is_copy_assignable<T>::value && !std::is_copy_constructible<T>::value>
   >
   void TTT(const T& haha) {
     cout << "A::TTT from copy_assignable " << endl;
   }
+  */
 };
 
 int main(int argc, char* argv) {
 
-  cout << "is double copy assignable " << is_copy_assignable<double>::value << endl;
-
-  A a_instance;
-
-  a_instance.TTT<B>(B(123));
+  C<> good_man;
 
   cout << "hello world" << endl;
-
   getchar();
 }
