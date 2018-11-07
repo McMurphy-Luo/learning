@@ -1,68 +1,35 @@
 #include <type_traits>
 #include <iostream>
+#include <cmath>
 
 using namespace std;
 
-template<int = 5>
-class C {
-
-};
-
-class B {
-public:
-  B(int v)
-    :k(v) {
-
-  }
-
-//  B(const B& another) = delete;
-
-  B& operator=(const B& another) = delete;
-
-  int k;
-};
-
+template<typename T>
 class A {
 public:
-
-  /*
-  template<
-    typename T,
-    typename = std::enable_if_t<std::is_copy_assignable<T>::value && std::is_copy_constructible<T>::value>
-  >
-  void TTT(const T& haha) {
-    cout << "A::TTT from copy_assignable and copy_constructable" << endl;
-  }
-
-  
-  void BBB() {
+  A() {
 
   }
-  
-  template<
-    typename T,
-    typename = std::enable_if_t<std::is_copy_constructible<T>::value && !std::is_copy_assignable<T>::value>
-  >
-  void TTT(const T& haha) {
-    cout << "A::TTT from copy_constructable" << endl;
-  }
-  
 
   
   template<
-    typename T,
-    typename = std::enable_if_t<std::is_copy_assignable<T>::value && !std::is_copy_constructible<T>::value>
+    typename std::enable_if<std::is_copy_assignable<T>::value && std::is_copy_constructible<T>::value, int>::type = 0
   >
-  void TTT(const T& haha) {
-    cout << "A::TTT from copy_assignable " << endl;
+  
+  A(const A& another) {
+    cout << "fucker" << endl;
   }
-  */
 };
 
 int main(int argc, char* argv) {
+  cout
+    << "double_t copy assignable: " << std::is_copy_assignable<double_t>::value << endl
+    << "double_t copy constructable" << std::is_copy_constructible<double_t>::value << endl;
 
-  C<> good_man;
+  A<double_t> nihao;
+  A<double_t> another = nihao;
 
-  cout << "hello world" << endl;
+  cout << "good" << endl;
+
   getchar();
 }
