@@ -1,0 +1,3 @@
+﻿LIBRARY learning_dll.dll
+EXPORTS
+  DoSomeThing @1
